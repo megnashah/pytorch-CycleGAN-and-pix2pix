@@ -2,11 +2,12 @@ import os, os.path
 import random
 import shutil
 
-
-A_image_directory = 'C:/Users/megna/Documents/DATA/Martensite/reconstructed_data/Outline/'
-B_image_directory = 'C:/Users/megna/Documents/DATA/Martensite/reconstructed_data/Packet_ID/'
-final_A_directory = 'C:/Users/megna/Documents/DATA/Martensite/current_run/A/'
-final_B_directory = 'C:/Users/megna/Documents/DATA/Martensite/current_run/B/'
+source_dir = '/home/megna_shah_1/data/martensitedata/To_Veera_MK3/'
+dest_dir = '/home/megna_shah_1//pytorch-CycleGAN-and-pix2pix/datasets/current_run/'
+A_image_directory = source_dir + 'Outline/'
+B_image_directory = source_dir + 'Packet_ID/'
+final_A_directory = dest_dir + 'A/'
+final_B_directory = dest_dir + 'B/'
 
 list_A_images = os.listdir(A_image_directory)
 list_B_images = os.listdir(B_image_directory)
