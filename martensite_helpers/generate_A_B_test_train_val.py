@@ -2,10 +2,10 @@ import os, os.path
 import random
 import shutil
 
-source_dir = '/home/megna_shah_1/data/martensitedata/To_Veera_MK3/'
-dest_dir = '/home/megna_shah_1//pytorch-CycleGAN-and-pix2pix/datasets/current_run/'
-A_image_directory = source_dir + 'Outline/'
-B_image_directory = source_dir + 'Packet_ID/'
+source_dir = '/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix//datasets/raw_data/'
+dest_dir = '/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/datasets/packets2blocks/'
+A_image_directory = source_dir + 'Packet_ID/'
+B_image_directory = source_dir + 'Block_ID/'
 final_A_directory = dest_dir + 'A/'
 final_B_directory = dest_dir + 'B/'
 
