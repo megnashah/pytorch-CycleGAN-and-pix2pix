@@ -7,26 +7,26 @@ def filecount(dir_name):
     return len([f for f in os.listdir(dir_name) if os.path.isfile(os.path.join(dir_name, f))])
 
 # TO BE CHANGED (ONLY for new REAL image batches): csv_file_data
-csv_file_data = "trial_12_05_20.csv"
+csv_file_data = "trial_12_14_20.csv"
 
-csv_file_data_dir = '/home/tom_phelan_ext/Documents/microstructure_analysis/grains2packets/'
+csv_file_data_dir = '/home/tom_phelan_ext/Documents/microstructure_analysis/packets2blocks/'
 file_data = pd.DataFrame(columns=["image name", "folder", ".csv file"])
 
-# paths for pipeline runs and outputting image data
-pipeline_file = '/home/tom_phelan_ext/Documents/dream3d_pipelines/find_feature_sizes.json'
-current_run = '/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/datasets/current_run/B/'
+# paths for pipeline runs and outputting image data; folder B in packets2blocks is the real block images
+pipeline_file = '/home/tom_phelan_ext/Documents/dream3d_pipelines/p2b_real_feature_sizes.json'
+packets2blocks = '../datasets/packets2blocks/B/'
 output_csv_folder = csv_file_data_dir + 'feature_data/'
 pipeline_runner = '/home/tom_phelan_ext/Programs/DREAM3D/bin/PipelineRunner'
 
 # subdirs are those listed within image_folder
-subdirs = os.listdir(current_run)
+subdirs = os.listdir(packets2blocks)
 print(subdirs)
 
 total_index = 1
 
 for subdir in subdirs:
     # create path for folders: test, train, val
-    image_folder = os.path.join(current_run, subdir) + "/"
+    image_folder = os.path.join(packets2blocks, subdir) + "/"
     print("Image folder path: ", image_folder)
     numImages = filecount(image_folder)
     print("Number of images in ", subdir, ": ", numImages)
@@ -40,7 +40,7 @@ for subdir in subdirs:
         with open(pipeline_file) as pipeline_json:
             pipeline_json_data = json.load(pipeline_json)
         pipeline_json_data['00']['FileName'] = image_folder + imageList[i]
-        pipeline_json_data['13']['FeatureDataFile'] = output_csv_folder + str(total_index) + '.csv'
+        pipeline_json_data['40']['FeatureDataFile'] = output_csv_folder + str(total_index) + '.csv'
 
         with open(pipeline_file, 'w') as pipeline_json:
             pipeline_json.write(json.dumps(pipeline_json_data, indent=4))
