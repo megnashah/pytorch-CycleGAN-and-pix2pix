@@ -21,20 +21,26 @@ if not(os.path.exists(output_p2b)): os.makedirs(output_p2b)
 if not(os.path.exists(output_g2p)): os.makedirs(output_g2p)
 
 # generate histogram function
-def create_histogram(real, fake, images, trial, output_folder):
-    real_image = cv2.imread(images + real, -1)
-    fake_image = cv2.imread(images + fake, -1)
-    hist_fake = cv2.calcHist([fake_image],[0],None,[256],[0,255])
-    plt.plot(hist_fake)
-    hist_real = cv2.calcHist([real_image],[0],None,[256],[0,255])
-    plt.plot(hist_real,color='r')
+def create_histogram(real, real_name, fake, num_fake, trial, output_folder):
+    print('Generating histogram for ' + trial + '...')
+    print('Real image selected: ' + real_name)   
+    print('Number of fake images captured: ', num_fake)
+    hist_real = cv2.calcHist([real],[0],None,[256],[0,255])
+    plt.plot(hist_real, color='k', label='real')
+    hist_fake = cv2.calcHist([fake],[0],None,[256],[0,255])
+    plt.plot(hist_fake, color='r', label='fake')
     plt.legend(loc='upper right')
     plt.xlim(0,255)
     plt.xlabel('Intensity')
     plt.title('Histogram of images in ' + trial)
     plt.savefig(output_folder + trial + '_hist.png')
+    print('Histogram saved.')
+    print()
     plt.clf()
 
+# read image function using cv2
+def read_image(image, path):
+    return cv2.imread(path + image, -1)
 # ---------------------------------------------------------------------------------------- #
 
 trials = os.listdir(results)
@@ -54,16 +60,22 @@ for trial in trials:
         output_folder = output_g2p
         print(str(trial) + ' is a grains2packets trial.')
 
-    # read thru images of current trial and capture pair of real & fake
+    # read thru images of current trial and capture one real, all fake images
     images = os.listdir(results + '/' + trial + '/test_latest/images/')
+    
+    num_fake = 0
+    fake_array = []
+
+    # captures all fake images and puts into numpy array
     for image in images:
         if str(image).find('fake_B') > -1: # returns >= 0 if found (index)
-            fake = str(image)
-            real = str(image)[:-10] + 'real_B.png'
-            print('fake: ' + fake)
-            print('real: ' + real)
-            print('Generating histogram for ' + trial + '...')
-            create_histogram(real, fake, images_path, trial, output_folder)
-            print('Histogram saved.')
-            print()
-            break
+            fake_array = numpy.concatenate(read_image(str(image), images_path))
+            num_fake += 1
+
+    # captures one 
+    for image in images:
+        if str(image).find('real_B') > -1:
+            real_name = str(image)
+            real = read_image(real_name, images_path)
+            create_histogram(real, real_name, fake_array, num_fake, trial, output_folder)
+            break # only takes one real image for histogram
