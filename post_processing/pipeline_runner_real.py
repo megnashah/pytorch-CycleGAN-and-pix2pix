@@ -12,7 +12,7 @@ csv_file_data = "trial_12_05_20.csv"
 csv_file_data_dir = '/home/tom_phelan_ext/Documents/microstructure_analysis/grains2packets/'
 file_data = pd.DataFrame(columns=["image name", "folder", ".csv file"])
 
-# paths for pipeline runs and outputting image data
+# GCP paths for pipeline runs and outputting image data
 pipeline_file = '/home/tom_phelan_ext/Documents/dream3d_pipelines/find_feature_sizes.json'
 current_run = '../datasets/current_run/B/'
 output_csv_folder = csv_file_data_dir + 'feature_data/'

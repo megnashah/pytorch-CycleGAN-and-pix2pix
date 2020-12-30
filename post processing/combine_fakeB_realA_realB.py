@@ -3,7 +3,7 @@ import numpy as np
 import os 
 
 top_directory = r'D:\steelGAN\12292020\results\results' 
-folders = ['train_12_21_20', 'train_12_23_20', 'train_12_26_20'] #os.listdir(top_directory)
+folders = ['train_12_29_20', 'train_12_30_20'] #os.listdir(top_directory)
 
 for folder in folders: 
 

@@ -2,7 +2,7 @@
     "00": {
         "CellAttributeMatrixName": "CellData",
         "DataContainerName": "ImageDataContainer",
-        "FileName": "/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/results/trial_12_05_20/test_latest/images/B_26_fake_B.png",
+        "FileName": "D:\\steelGAN\\12292020\\results\\results\\train_12_29_20\\test_latest\\images\\H_5_fake_B.png",
         "FilterVersion": "1.0.496",
         "Filter_Enabled": true,
         "Filter_Human_Label": "ITK::Image Reader",
@@ -661,7 +661,7 @@
             "Data Container Name": "ImageDataContainer"
         },
         "DelimiterChoiceInt": 0,
-        "FeatureDataFile": "/home/tom_phelan_ext/Documents/microstructure_analysis/feature_data_FAKE/trial_12_05_20/34.csv",
+        "FeatureDataFile": "D:\\steelGAN\\12292020\\microstructure_analysis\\microstructure_analysis\\grains2packets\\\\feature_data_FAKE\\train_12_29_20\\34.csv",
         "FilterVersion": "1.2.815",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Export Feature Data as CSV File",
