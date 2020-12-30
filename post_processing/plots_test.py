@@ -5,13 +5,12 @@ import matplotlib.pyplot as plt
 import numpy
 import os
 import math
-import pickle
 from datetime import date
 
 
-# TO BE CHANGED --> list of fake feature data to be analyzed
-trial_list = ["trial_12_14_20"]
-project = 'packets2blocks'
+# TO BE CHANGED --> list of fake feature data to be analyzed (chronological order)
+trial_list = ['trial_12_05_20', 'train_12_23_20', 'train_12_26_20', 'train_12_28_20']
+project = 'grains2packets'
 
 # these will be 3D arrays of all fake data collected
 all_FAKE = list(range(len(trial_list)))
@@ -28,7 +27,7 @@ if (not(os.path.exists(graphs_folder))): os.makedirs(graphs_folder)
 
 # arrays of attributes to be normalized and log normalized
 attributes = ['AspectRatios_0', 'AxisEulerAngles_0','Neighborhoods', 'NumNeighbors']
-log_attributes = ['AxisLengths_0', 'AxisLengths_1', 'EquivalentDiameters']
+log_attributes = ['AxisLengths_0', 'AxisLengths_1', 'EquivalentDiameters', 'Neighborhoods', 'NumNeighbors']
 
 def build_attr_array(image, attr, log_bool):
     new_data = image[attr].values
@@ -45,6 +44,10 @@ def build_attr_array(image, attr, log_bool):
     # checks whether attribute needs log distr.
     if (log_bool):
         new_data = numpy.log(numpy.asarray(new_data))
+        # safe log (for Neighborhoods, NumNeighbors)
+        for i in range(len(new_data)):
+            if new_data[i] < 0: new_data[i] = 0
+
     # return new_data array, to be appended to its respective attr. array
     return new_data
 
@@ -101,7 +104,7 @@ def get_min_and_max(final_min, final_max, data):
 
 # REAL IMAGE DATA --------------------------------------------------------------------------------- #
 data_real = [[],[],[],[]]
-log_data_real = [[],[],[]]
+log_data_real = [[],[],[],[],[]]
 
 print("Processing real image data for " + project + "...")
 for csv_file in feature_data:
@@ -109,6 +112,14 @@ for csv_file in feature_data:
     data_real, log_data_real = read_images(image, data_real, log_data_real)
     
 print(project + " real image data collected.")
+print()
+
+# DEBUGGING
+print("real Neighborhoods data, log: ")
+print(log_data_real[3])
+print()
+print("real NumNeighbors data, log: ")
+print(log_data_real[4])
 print()
 
 # FAKE IMAGE DATA --------------------------------------------------------------------------------- #
@@ -119,7 +130,7 @@ for trial in trial_list:
     print("Processing " + str(trial) + " fake data...")
 
     data_FAKE = [[],[],[],[]]
-    log_data_FAKE = [[],[],[]]
+    log_data_FAKE = [[],[],[],[],[]]
 
     for csv_file in os.listdir(feature_data_FAKE):
         image = pd.read_csv(feature_data_FAKE + csv_file, skiprows=0, header=1)
@@ -130,6 +141,14 @@ for trial in trial_list:
     log_all_FAKE[i] = log_data_FAKE
     i += 1
     print(str(trial) + " fake image data collected.")
+    print()
+
+    # DEBUGGING
+    print("real Neighborhoods data, log: ")
+    print(log_data_FAKE[3])
+    print()
+    print("real NumNeighbors data, log: ")
+    print(log_data_FAKE[4])
     print()
 
 # HISTOGRAMS -------------------------------------------------------------------------------------- #

@@ -14,7 +14,7 @@ file_data = pd.DataFrame(columns=["image name", "folder", ".csv file"])
 
 # paths for pipeline runs and outputting image data
 pipeline_file = '/home/tom_phelan_ext/Documents/dream3d_pipelines/find_feature_sizes.json'
-current_run = '../datasets/current_run/B/'
+current_run = '/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/datasets/current_run/B/'
 output_csv_folder = csv_file_data_dir + 'feature_data/'
 pipeline_runner = '/home/tom_phelan_ext/Programs/DREAM3D/bin/PipelineRunner'
 

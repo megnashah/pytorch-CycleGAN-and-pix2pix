@@ -7,8 +7,8 @@ import itertools
 import os
 
 # TO BE CHANGED --> trial_name, num_epochs, num_xticks
-trial_name = 'trial_12_14_20'
-project = 'packets2blocks'
+trial_name = 'train_12_28_20'
+project = 'grains2packets'
 
 loss_file = '../checkpoints/' + trial_name + '/loss_log.txt'
 graphs_folder = '/home/tom_phelan_ext/Documents/graphs/' + project + '/' + trial_name + '/'
@@ -32,7 +32,7 @@ with open(loss_file, 'r') as readfile:
     last_line = len(readfile.readlines())
     # file must be re-opened
     readfile = open(loss_file, 'r')
-    for line in itertools.islice(readfile, 19, last_line): # omitting data from before re-running model
+    for line in itertools.islice(readfile, 1, last_line): # omits training model header info
         ep = line.split()
         # NOTE: hard-coded the indices for appending data to dataframe (element indices are known)
         ep_name = ep[1][:-(1)] # omit trailing comma
