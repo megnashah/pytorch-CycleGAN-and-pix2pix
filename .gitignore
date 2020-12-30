@@ -42,3 +42,9 @@ test/data/legacy_serialized.pt
 *~
 .idea
 .vscode/settings.json
+
+post_processing/trial_options.py
+
+post_processing/instance_status.py
+
+post processing/trial_run_options.py

@@ -10,8 +10,8 @@ import os
 trial_name = 'trial_12_14_20'
 project = 'packets2blocks'
 
-loss_file = '/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/checkpoints/' + trial_name + '/loss_log.txt'
-graphs_folder = './graphs/' + project + '/' + trial_name + '/'
+loss_file = '../checkpoints/' + trial_name + '/loss_log.txt'
+graphs_folder = '/home/tom_phelan_ext/Documents/graphs/' + project + '/' + trial_name + '/'
 num_epochs = 1100
 num_xticks = 185
 

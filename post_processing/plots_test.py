@@ -18,12 +18,12 @@ all_FAKE = list(range(len(trial_list)))
 log_all_FAKE = list(range(len(trial_list)))
 
 # directory paths for feature data, both real and fake
-feature_data_dir = "./microstructure_analysis/" + project + "/feature_data/"
+feature_data_dir = "/home/tom_phelan_ext/Documents/microstructure_analysis/" + project + "/feature_data/"
 feature_data = os.listdir(feature_data_dir)
-feature_data_FAKE_dir = "./microstructure_analysis/" + project + "/feature_data_FAKE/"
+feature_data_FAKE_dir = "/home/tom_phelan_ext/Documents/microstructure_analysis/" + project + "/feature_data_FAKE/"
 
 # directory path for output graphs/plots; outputs in new latest trial graph folder
-graphs_folder = "./graphs/" + project + "/" + trial_list[len(trial_list) - 1] + "/"
+graphs_folder = "/home/tom_phelan_ext/Documents/graphs/" + project + "/" + trial_list[len(trial_list) - 1] + "/"
 if (not(os.path.exists(graphs_folder))): os.makedirs(graphs_folder)
 
 # arrays of attributes to be normalized and log normalized
