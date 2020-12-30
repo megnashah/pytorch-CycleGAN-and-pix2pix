@@ -7,11 +7,18 @@ import itertools
 import os
 
 # TO BE CHANGED --> trial_name, num_epochs, num_xticks
-trial_name = 'trial_12_14_20'
+trial_name = '12_26'
 project = 'packets2blocks'
 
-loss_file = '../checkpoints/' + trial_name + '/loss_log.txt'
-graphs_folder = '/home/tom_phelan_ext/Documents/graphs/' + project + '/' + trial_name + '/'
+#GCP directories
+# loss_file = '../checkpoints/' + trial_name + '/loss_log.txt'
+# graphs_folder = '/home/tom_phelan_ext/Documents/graphs/' + project + '/' + trial_name + '/'
+
+#Megna Directories
+loss_directory = r'D:\steelGAN\12292020\loss'
+loss_file = loss_directory + '\\' + trial_name + '_loss.txt'
+graphs_folder = loss_directory + '\\plots\\' + trial_name
+
 num_epochs = 1100
 num_xticks = 185
 
@@ -59,6 +66,7 @@ ymax = 0
 # plotting epoch vs. each loss, individually
 print("Generating EquivalentDiameters individual loss plots...")
 print()
+colors = ['b', 'g', 'm', 'y']
 for i in range(1, len(epoch_data.columns)):
     attr = epoch_data.columns[i]
     print("Generating " + attr + " loss plot...")
@@ -71,7 +79,7 @@ for i in range(1, len(epoch_data.columns)):
     plt.xlim(1, num_epochs) # num epochs
     plt.ylim(ymin, ymax) # range of losses
     plt.xticks(numpy.arange(1, num_epochs, num_xticks)) # scale x-axis ticks
-    plt.scatter(epochs, loss_list)
+    plt.scatter(epochs, loss_list, s=5, c=colors[i-1])
     plt.title(attr + " Loss for " + trial_name + " Images")
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
@@ -81,20 +89,21 @@ for i in range(1, len(epoch_data.columns)):
     print()
 
 
-# plotting epoch vs. each loss, grouped plot
-print("Generating EquivalentDiameters grouped loss plot...")
+# plotting epoch vs. generator loss, grouped plot
+print("Generating Generator grouped loss plot...")
 print()
 ymin = 10000
 ymax = 0
-alpha = .8
-for i in range(1, len(epoch_data.columns)):
+alpha = 1
+colors = ['b', 'g']
+for i in range(1, 3):  #len(epoch_data.columns)
     attr = epoch_data.columns[i]
     print(attr, ':', epoch_data[attr].values)
     ymin, ymax, loss_list = get_min_and_max(ymin, ymax, epoch_data[attr])
     print(attr + " ymin:", ymin)
     print(attr + " ymax:", ymax)
     print()
-    plt.scatter(epochs, loss_list, alpha=alpha, label=attr)
+    plt.scatter(epochs, loss_list, alpha=alpha, label=attr, s=5, c=colors[i-1])
     alpha -= 0.2
 
 # check to see if function returns correct vals
@@ -103,13 +112,51 @@ print("final ymax: ", ymax)
 
 plt.xlim(1, num_epochs) # num epochs
 plt.ylim(ymin, ymax) # range of losses
-plt.title("Losses for " + trial_name + " Images")
+plt.title("Generator Loss")
 plt.xticks(numpy.arange(1, num_epochs, num_xticks)) # scale x-axis ticks
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.legend()
-plt.savefig(graphs_folder + "all_loss.png")
+plt.savefig(graphs_folder + "G_loss.png")
 plt.clf()
+
+print("Generating Discriminator grouped loss plot...")
+print()
+ymin = 10000
+ymax = 0
+alpha = 1
+colors = ['m', 'y']
+for i in range(3, 5):  #len(epoch_data.columns)
+    attr = epoch_data.columns[i]
+    print(attr, ':', epoch_data[attr].values)
+    ymin, ymax, loss_list = get_min_and_max(ymin, ymax, epoch_data[attr])
+    print(attr + " ymin:", ymin)
+    print(attr + " ymax:", ymax)
+    print()
+    plt.scatter(epochs, loss_list, alpha=alpha, label=attr, s=5, c=colors[i-3])
+    #alpha -= 0.2
+
+# check to see if function returns correct vals
+print("final ymin: ", ymin)
+print("final ymax: ", ymax)
+
+plt.xlim(1, num_epochs) # num epochs
+plt.ylim(ymin, 2.0) # range of losses
+plt.title("Discriminator Loss")
+plt.xticks(numpy.arange(1, num_epochs, num_xticks)) # scale x-axis ticks
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.savefig(graphs_folder + "D_loss.png")
+plt.clf()
+
+
+
+
+
+
+
+
 print("Grouped loss plot saved.")
 print()
 print("Program completed.")
