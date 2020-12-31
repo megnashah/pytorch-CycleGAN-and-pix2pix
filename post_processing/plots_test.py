@@ -10,25 +10,39 @@ from datetime import date
 
 
 # TO BE CHANGED --> list of fake feature data to be analyzed
-trial_list = ["trial_12_14_20"]
+trial_list = ["trial_12_14_20", 'train_12_21_20', 'train_12_28v2_20', 'train_12_30_20'] #packets2blocks
+label_list = ['B1, smooth', 'B1, sharp', 'B50, smooth', 'B16, smooth'] #packets2blocks
+#trial_list = ['trial_12_05_20', 'train_12_23_20', 'train_12_26_20', 'train_12_28_20', 'train_12_29_20'] #grains2packets
+#label_list = ['B1, smooth', 'B1, sharp', 'B50, sharp', 'B50, smooth', 'B16, smooth'] #grains2packets
 project = 'packets2blocks'
 
 # these will be 3D arrays of all fake data collected
 all_FAKE = list(range(len(trial_list)))
 log_all_FAKE = list(range(len(trial_list)))
 
+#GCP PATHS 
+# # directory paths for feature data, both real and fake
+# feature_data_dir = "/home/tom_phelan_ext/Documents/microstructure_analysis/" + project + "/feature_data/"
+# feature_data = os.listdir(feature_data_dir)
+# feature_data_FAKE_dir = "/home/tom_phelan_ext/Documents/microstructure_analysis/" + project + "/feature_data_FAKE/"
+
+# # directory path for output graphs/plots; outputs in new latest trial graph folder
+# graphs_folder = "/home/tom_phelan_ext/Documents/graphs/" + project + "/" + trial_list[len(trial_list) - 1] + "/"
+# if (not(os.path.exists(graphs_folder))): os.makedirs(graphs_folder)
+
+#Megna PATHS 
 # directory paths for feature data, both real and fake
-feature_data_dir = "/home/tom_phelan_ext/Documents/microstructure_analysis/" + project + "/feature_data/"
+feature_data_dir = r'D:\steelGAN\12292020\microstructure_analysis\microstructure_analysis' + '\\' + project + "\\feature_data\\"
 feature_data = os.listdir(feature_data_dir)
-feature_data_FAKE_dir = "/home/tom_phelan_ext/Documents/microstructure_analysis/" + project + "/feature_data_FAKE/"
+feature_data_FAKE_dir = r'D:\steelGAN\12292020\microstructure_analysis\microstructure_analysis' + '\\' + project + "\\feature_data_FAKE\\"
 
 # directory path for output graphs/plots; outputs in new latest trial graph folder
-graphs_folder = "/home/tom_phelan_ext/Documents/graphs/" + project + "/" + trial_list[len(trial_list) - 1] + "/"
+graphs_folder = r'D:\steelGAN\12292020\microstructure_analysis\microstructure_analysis' + '\\' + project + "\\plots\\" 
 if (not(os.path.exists(graphs_folder))): os.makedirs(graphs_folder)
 
 # arrays of attributes to be normalized and log normalized
-attributes = ['AspectRatios_0', 'AxisEulerAngles_0','Neighborhoods', 'NumNeighbors']
-log_attributes = ['AxisLengths_0', 'AxisLengths_1', 'EquivalentDiameters']
+attributes = ['AspectRatios_0', 'AxisEulerAngles_0','Neighborhoods']
+log_attributes = ['AxisLengths_0', 'AxisLengths_1', 'EquivalentDiameters', 'NumNeighbors']
 
 def build_attr_array(image, attr, log_bool):
     new_data = image[attr].values
@@ -52,23 +66,30 @@ def create_histogram(real_attr_arr, fake, attr, attr_index, num_bins, log_bool):
     if attr == 'Neighborhoods' or attr == 'NumNeighbors':
         num_bins=10
     # alpha determines transparency, density normalizes the dataset
-    plt.hist(real_attr_arr, bins=num_bins, label='real', density=True, alpha=0.5, edgecolor='blue')
+    #plt.hist(real_attr_arr, bins=num_bins, label='real', density=True, alpha=0.5, edgecolor='blue')
+    y, binEdges = numpy.histogram(real_attr_arr, bins=num_bins, density = True)
+    bincenters = 0.5*(binEdges[1:]+binEdges[:-1]) 
+    plt.plot(bincenters, y, label='real', linestyle='dashed', linewidth=4)
     for i in range(0,len(fake)):
-        date = trial_list[i][6:-3] # truncate trial name down to MM-DD for legend labeling
+        date = label_list[i] #trial_list[i][6:-3] # truncate trial name down to MM-DD for legend labeling
         fake_label = 'fake (' + date + ')'
         sub_arr = fake[i]
         # i = index of current fake dataset
-        plt.hist(sub_arr[attr_index], bins=num_bins, label=fake_label, density=True, alpha=0.5)
+        #plt.hist(sub_arr[attr_index], bins=num_bins, label=fake_label, density=True, alpha=0.5)
+        y, binEdges = numpy.histogram(sub_arr[attr_index], bins=binEdges, density=True)
+        bincenters = 0.5*(binEdges[1:]+binEdges[:-1]) 
+        plt.plot(bincenters, y, '-', label=fake_label)
     
-    plt.xlabel(attr)
-    plt.ylabel("Number of Features")
+    plt.ylabel("Number of Features, normalized")
     plt.legend(loc='upper right')
     # labeling for histogram and image (normal or log normal)
     if (log_bool):
-        plt.title(attr + " in Feature, log normalized")
+        plt.xlabel('ln(' + attr + ')')
+        plt.title('ln(' + attr + ')')
         plt.savefig(graphs_folder + attr + "_log_HIST.png")
     else:
-        plt.title(attr + " in Feature, normalized")
+        plt.xlabel(attr)
+        plt.title(attr)
         plt.savefig(graphs_folder + attr + "_HIST.png")
     plt.clf()
 
@@ -100,8 +121,8 @@ def get_min_and_max(final_min, final_max, data):
 # NOTE: Each index of the total image data array will be a sub-array that represents a certain image attribute.
 
 # REAL IMAGE DATA --------------------------------------------------------------------------------- #
-data_real = [[],[],[],[]]
-log_data_real = [[],[],[]]
+data_real = [[],[],[]]
+log_data_real = [[],[],[],[]]
 
 print("Processing real image data for " + project + "...")
 for csv_file in feature_data:
@@ -118,8 +139,8 @@ for trial in trial_list:
     feature_data_FAKE = feature_data_FAKE_dir + trial + '/'
     print("Processing " + str(trial) + " fake data...")
 
-    data_FAKE = [[],[],[],[]]
-    log_data_FAKE = [[],[],[]]
+    data_FAKE = [[],[],[]]
+    log_data_FAKE = [[],[],[],[]]
 
     for csv_file in os.listdir(feature_data_FAKE):
         image = pd.read_csv(feature_data_FAKE + csv_file, skiprows=0, header=1)
@@ -136,14 +157,14 @@ for trial in trial_list:
 i = 0
 for attr in attributes:
     print("Generating histogram for " + attr + " data...")
-    create_histogram(real_attr_arr=data_real[i], fake=all_FAKE, attr=attr, attr_index=i, num_bins=50, log_bool=False)
+    create_histogram(real_attr_arr=data_real[i], fake=all_FAKE, attr=attr, attr_index=i, num_bins=25, log_bool=False)
     i += 1
     print(attr + " histogram saved.")
     print()
 i = 0
 for attr in log_attributes:
     print("Generating histogram for " + attr + " data...")
-    create_histogram(real_attr_arr=log_data_real[i], fake=log_all_FAKE, attr=attr, attr_index=i, num_bins=50, log_bool=True)
+    create_histogram(real_attr_arr=log_data_real[i], fake=log_all_FAKE, attr=attr, attr_index=i, num_bins=25, log_bool=True)
     i += 1
     print(attr + " histogram saved.")
     print()
@@ -165,7 +186,7 @@ for attr in attributes:
             current_fake = all_FAKE[j]
             temp = log_all_FAKE[j]
             fake_diam = temp[2] # equivalent diameters of current fake dataset
-            date = trial_list[j][6:-3] # truncate trial name down to MM-DD for legend labeling
+            date = label_list[j] #trial_list[j][6:-3] # truncate trial name down to MM-DD for legend labeling
             fake_label = 'fake (' + date + ')'
             plt.scatter(fake_diam, current_fake[i], label=fake_label, alpha=0.25)
             # check min and max again
