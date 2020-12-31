@@ -39,7 +39,7 @@ with open(loss_file, 'r') as readfile:
     last_line = len(readfile.readlines())
     # file must be re-opened
     readfile = open(loss_file, 'r')
-    for line in itertools.islice(readfile, 19, last_line): # omitting data from before re-running model
+    for line in itertools.islice(readfile, 1, last_line): # omits training model header info
         ep = line.split()
         # NOTE: hard-coded the indices for appending data to dataframe (element indices are known)
         ep_name = ep[1][:-(1)] # omit trailing comma
