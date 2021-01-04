@@ -7,7 +7,7 @@ import itertools
 import os
 
 # TO BE CHANGED --> trial_name, num_epochs, num_xticks
-trial_name = '12_26'
+trial_name = '12_28v2'
 project = 'packets2blocks'
 
 #GCP directories
