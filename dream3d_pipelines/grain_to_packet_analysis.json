@@ -1,0 +1,319 @@
+{
+    "00": {
+        "CellAttributeMatrixName": "CellData",
+        "DataContainerName": "ImageDataContainer",
+        "FileName": "D:/steelGAN/12292020/realdata/current_run/A/test/A_2.png",
+        "FilterVersion": "1.0.494",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "ITK::Image Reader",
+        "Filter_Name": "ITKImageReader",
+        "Filter_Uuid": "{653b7b5c-03cb-5b32-8c3e-3637745e5ff6}",
+        "ImageDataArrayName": "ImageData"
+    },
+    "01": {
+        "DestinationArrayName": "Mask",
+        "FilterVersion": "1.2.808",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Threshold Objects",
+        "Filter_Name": "MultiThresholdObjects",
+        "Filter_Uuid": "{014b7300-cf36-5ede-a751-5faf9b119dae}",
+        "SelectedThresholds": [
+            {
+                "Attribute Array Name": "ImageData",
+                "Attribute Matrix Name": "CellData",
+                "Comparison Operator": 1,
+                "Comparison Value": 200,
+                "Data Container Name": "ImageDataContainer"
+            }
+        ]
+    },
+    "02": {
+        "ActiveArrayName": "Active",
+        "CellFeatureAttributeMatrixName": "GrainFeatureData",
+        "FeatureIdsArrayName": "GrainFeatureIDs",
+        "FilterVersion": "6.5.128",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Segment Features (Scalar)",
+        "Filter_Name": "ScalarSegmentFeatures",
+        "Filter_Uuid": "{2c5edebf-95d8-511f-b787-90ee2adf485c}",
+        "GoodVoxelsArrayPath": {
+            "Attribute Matrix Name": "CellData",
+            "Data Array Name": "Mask",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "ScalarArrayPath": {
+            "Attribute Matrix Name": "CellData",
+            "Data Array Name": "ImageData",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "ScalarTolerance": 5,
+        "UseGoodVoxels": 1
+    },
+    "03": {
+        "CellAttributeMatrixName": "PacketData",
+        "DataContainerName": "ImageDataContainer2",
+        "FileName": "D:/steelGAN/12292020/realdata/current_run/B/test/A_2.png",
+        "FilterVersion": "1.0.494",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "ITK::Image Reader",
+        "Filter_Name": "ITKImageReader",
+        "Filter_Uuid": "{653b7b5c-03cb-5b32-8c3e-3637745e5ff6}",
+        "ImageDataArrayName": "PacketData"
+    },
+    "04": {
+        "AttributeMatrixDestination": {
+            "Attribute Matrix Name": "CellData",
+            "Data Array Name": "",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "AttributeMatrixSource": {
+            "Attribute Matrix Name": "",
+            "Data Array Name": "",
+            "Data Container Name": ""
+        },
+        "DataArraySource": {
+            "Attribute Matrix Name": "PacketData",
+            "Data Array Name": "PacketData",
+            "Data Container Name": "ImageDataContainer2"
+        },
+        "DataContainerDestination": "",
+        "FilterVersion": "1.2.808",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Move Data",
+        "Filter_Name": "MoveData",
+        "Filter_Uuid": "{fe2cbe09-8ae1-5bea-9397-fd5741091fdb}",
+        "WhatToMove": 1
+    },
+    "05": {
+        "DataArraysToRemove": {
+            "Data Containers": [
+                {
+                    "Attribute Matricies": [
+                        {
+                            "Data Arrays": [
+                                {
+                                    "Component Dimensions": [
+                                        1
+                                    ],
+                                    "Flag": 0,
+                                    "Name": "GrainFeatureIDs",
+                                    "Object Type": "int32_t",
+                                    "Path": "ImageDataContainer/CellData/",
+                                    "Tuple Dimensions": [
+                                        321,
+                                        321,
+                                        1
+                                    ],
+                                    "Version": 2
+                                },
+                                {
+                                    "Component Dimensions": [
+                                        1
+                                    ],
+                                    "Flag": 0,
+                                    "Name": "ImageData",
+                                    "Object Type": "uint8_t",
+                                    "Path": "ImageDataContainer/CellData/",
+                                    "Tuple Dimensions": [
+                                        321,
+                                        321,
+                                        1
+                                    ],
+                                    "Version": 2
+                                },
+                                {
+                                    "Component Dimensions": [
+                                        1
+                                    ],
+                                    "Flag": 0,
+                                    "Name": "Mask",
+                                    "Object Type": "bool",
+                                    "Path": "ImageDataContainer/CellData/",
+                                    "Tuple Dimensions": [
+                                        321,
+                                        321,
+                                        1
+                                    ],
+                                    "Version": 2
+                                },
+                                {
+                                    "Component Dimensions": [
+                                        1
+                                    ],
+                                    "Flag": 0,
+                                    "Name": "PacketData",
+                                    "Object Type": "uint8_t",
+                                    "Path": "ImageDataContainer/CellData/",
+                                    "Tuple Dimensions": [
+                                        321,
+                                        321,
+                                        1
+                                    ],
+                                    "Version": 2
+                                }
+                            ],
+                            "Flag": 0,
+                            "Name": "CellData",
+                            "Type": 3
+                        },
+                        {
+                            "Data Arrays": [
+                                {
+                                    "Component Dimensions": [
+                                        1
+                                    ],
+                                    "Flag": 0,
+                                    "Name": "Active",
+                                    "Object Type": "bool",
+                                    "Path": "ImageDataContainer/GrainFeatureData/",
+                                    "Tuple Dimensions": [
+                                        0
+                                    ],
+                                    "Version": 2
+                                }
+                            ],
+                            "Flag": 0,
+                            "Name": "GrainFeatureData",
+                            "Type": 7
+                        }
+                    ],
+                    "Flag": 0,
+                    "Name": "ImageDataContainer",
+                    "Type": 0
+                },
+                {
+                    "Attribute Matricies": [
+                        {
+                            "Data Arrays": [
+                            ],
+                            "Flag": 0,
+                            "Name": "PacketData",
+                            "Type": 3
+                        }
+                    ],
+                    "Flag": 2,
+                    "Name": "ImageDataContainer2",
+                    "Type": 0
+                }
+            ]
+        },
+        "FilterVersion": "1.2.808",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Delete Data",
+        "Filter_Name": "RemoveArrays",
+        "Filter_Uuid": "{7b1c8f46-90dd-584a-b3ba-34e16958a7d0}"
+    },
+    "06": {
+        "ActiveArrayName": "Active",
+        "CellFeatureAttributeMatrixName": "PacketFeatureData",
+        "FeatureIdsArrayName": "PacketFeatureIDs",
+        "FilterVersion": "6.5.128",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Segment Features (Scalar)",
+        "Filter_Name": "ScalarSegmentFeatures",
+        "Filter_Uuid": "{2c5edebf-95d8-511f-b787-90ee2adf485c}",
+        "GoodVoxelsArrayPath": {
+            "Attribute Matrix Name": "CellData",
+            "Data Array Name": "Mask",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "ScalarArrayPath": {
+            "Attribute Matrix Name": "CellData",
+            "Data Array Name": "PacketData",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "ScalarTolerance": 0,
+        "UseGoodVoxels": 1
+    },
+    "07": {
+        "CellPhasesArrayPath": {
+            "Attribute Matrix Name": "CellData",
+            "Data Array Name": "GrainFeatureIDs",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "FeatureIdsArrayPath": {
+            "Attribute Matrix Name": "CellData",
+            "Data Array Name": "PacketFeatureIDs",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "FeaturePhasesArrayPath": {
+            "Attribute Matrix Name": "PacketFeatureData",
+            "Data Array Name": "ParentGrainIDs",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "FilterVersion": "6.5.128",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Find Feature Phases",
+        "Filter_Name": "FindFeaturePhases",
+        "Filter_Uuid": "{6334ce16-cea5-5643-83b5-9573805873fa}"
+    },
+    "08": {
+        "CellEnsembleAttributeMatrixName": "EnsembleAttributeMatrix",
+        "CrystalStructuresArrayName": "CrystalStructures",
+        "DataContainerName": "ImageDataContainer",
+        "Ensemble": [
+            {
+                "CrystalStructure": 0,
+                "PhaseName": "Phase Name",
+                "PhaseType": 0
+            }
+        ],
+        "FilterVersion": "6.5.128",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Create Ensemble Info",
+        "Filter_Name": "CreateEnsembleInfo",
+        "Filter_Uuid": "{2a0bfcd3-2517-5117-b164-964dfac8fe22}",
+        "PhaseNamesArrayName": "PhaseNames",
+        "PhaseTypesArrayName": "PhaseTypes"
+    },
+    "09": {
+        "FeaturePhasesArrayPath": {
+            "Attribute Matrix Name": "PacketFeatureData",
+            "Data Array Name": "ParentGrainIDs",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "FilterVersion": "6.5.128",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Find Number of Features",
+        "Filter_Name": "FindNumFeatures",
+        "Filter_Uuid": "{529743cf-d5d5-5d5a-a79f-95c84a5ddbb5}",
+        "NumFeaturesArrayPath": {
+            "Attribute Matrix Name": "GrainFeatureData",
+            "Data Array Name": "NumPackets",
+            "Data Container Name": "ImageDataContainer"
+        }
+    },
+    "10": {
+        "CreatedArrayName": "NumPackets",
+        "FeatureIdsArrayPath": {
+            "Attribute Matrix Name": "CellData",
+            "Data Array Name": "GrainFeatureIDs",
+            "Data Container Name": "ImageDataContainer"
+        },
+        "FilterVersion": "1.2.808",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Create Element Array from Feature Array",
+        "Filter_Name": "CopyFeatureArrayToElementArray",
+        "Filter_Uuid": "{99836b75-144b-5126-b261-b411133b5e8a}",
+        "SelectedFeatureArrayPath": {
+            "Attribute Matrix Name": "GrainFeatureData",
+            "Data Array Name": "NumPackets",
+            "Data Container Name": "ImageDataContainer"
+        }
+    },
+    "11": {
+        "FilterVersion": "1.2.808",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Write DREAM.3D Data File",
+        "Filter_Name": "DataContainerWriter",
+        "Filter_Uuid": "{3fcd4c43-9d75-5b86-aad4-4441bc914f37}",
+        "OutputFile": "D:/steelGAN/12292020/grains_packets.dream3d",
+        "WriteTimeSeries": 0,
+        "WriteXdmfFile": 1
+    },
+    "PipelineBuilder": {
+        "Name": "grain_to_packet_analysis",
+        "Number_Filters": 12,
+        "Version": 6
+    }
+}
