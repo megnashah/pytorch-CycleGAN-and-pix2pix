@@ -10,12 +10,12 @@ from datetime import date
 
 
 # TO BE CHANGED --> list of fake feature data to be analyzed
-trial_list = ["trial_12_14_20", 'train_12_21_20', 'train_12_28v2_20', 'train_12_30_20'] #packets2blocks
-label_list = ['B1, smooth', 'B1, sharp', 'B50, smooth', 'B16, smooth'] #packets2blocks
-#trial_list = ['trial_12_05_20', 'train_12_23_20', 'train_12_26_20', 'train_12_28_20', 'train_12_29_20'] #grains2packets
-#label_list = ['B1, smooth', 'B1, sharp', 'B50, sharp', 'B50, smooth', 'B16, smooth'] #grains2packets
-project = 'packets2blocks'
-
+# trial_list = ["trial_12_14_20", 'train_12_21_20', 'train_12_28v2_20', 'train_12_30_20'] #packets2blocks
+# label_list = ['B1, smooth', 'B1, sharp', 'B50, smooth', 'B16, smooth'] #packets2blocks
+trial_list = ['trial_12_05_20', 'train_12_23_20', 'train_12_26_20', 'train_12_28_20', 'train_12_29_20'] #grains2packets
+label_list = ['B1, smooth', 'B1, sharp', 'B50, sharp', 'B50, smooth', 'B16, smooth'] #grains2packets
+#project = 'packets2blocks'
+project = 'grains2packets'
 # these will be 3D arrays of all fake data collected
 all_FAKE = list(range(len(trial_list)))
 log_all_FAKE = list(range(len(trial_list)))
@@ -152,6 +152,44 @@ for trial in trial_list:
     i += 1
     print(str(trial) + " fake image data collected.")
     print()
+
+# CSV FILE STATS ---------------------------------------------------------------------------------- #
+i = 0
+
+
+
+for attr in log_attributes:
+    print("Generating data for " + attr + " data...")
+    stats = []
+    stats.append([numpy.mean(log_data_real[i]), numpy.mean(log_all_FAKE[0][i]), numpy.mean(log_all_FAKE[1][i]), numpy.mean(log_all_FAKE[1][i]), numpy.mean(log_all_FAKE[3][i]), numpy.mean(log_all_FAKE[4][i])])
+    stats.append([numpy.median(log_data_real[i]), numpy.median(log_all_FAKE[0][i]), numpy.median(log_all_FAKE[1][i]), numpy.median(log_all_FAKE[1][i]), numpy.median(log_all_FAKE[3][i]), numpy.median(log_all_FAKE[4][i])])
+    stats.append([numpy.min(log_data_real[i]), numpy.min(log_all_FAKE[0][i]), numpy.min(log_all_FAKE[1][i]), numpy.min(log_all_FAKE[1][i]), numpy.min(log_all_FAKE[3][i]), numpy.min(log_all_FAKE[4][i])])
+    stats.append([numpy.max(log_data_real[i]), numpy.max(log_all_FAKE[0][i]), numpy.max(log_all_FAKE[1][i]), numpy.max(log_all_FAKE[1][i]), numpy.max(log_all_FAKE[3][i]), numpy.max(log_all_FAKE[4][i])])
+    stats.append([numpy.std(log_data_real[i]), numpy.std(log_all_FAKE[0][i]), numpy.std(log_all_FAKE[1][i]), numpy.std(log_all_FAKE[1][i]), numpy.std(log_all_FAKE[3][i]), numpy.std(log_all_FAKE[4][i])])
+    
+    i += 1
+    
+    df = pd.DataFrame(stats, columns = ['real'] + label_list, index = ['mean', 'median', 'min', 'max', 'st dev'])
+    df.to_csv(r"D:\steelGAN\12292020\microstructure_analysis\microstructure_analysis\stats\grains2packets" + "\\" + attr + ".csv")
+
+i=0
+for attr in attributes:
+    print("Generating data for " + attr + " data...")
+    stats = []
+    stats.append([numpy.mean(data_real[i]), numpy.mean(all_FAKE[0][i]), numpy.mean(all_FAKE[1][i]), numpy.mean(all_FAKE[1][i]), numpy.mean(all_FAKE[3][i]), numpy.mean(all_FAKE[4][i])])
+    stats.append([numpy.median(data_real[i]), numpy.median(all_FAKE[0][i]), numpy.median(all_FAKE[1][i]), numpy.median(all_FAKE[1][i]), numpy.median(all_FAKE[3][i]), numpy.median(all_FAKE[4][i])])
+    stats.append([numpy.min(data_real[i]), numpy.min(all_FAKE[0][i]), numpy.min(all_FAKE[1][i]), numpy.min(all_FAKE[1][i]), numpy.min(all_FAKE[3][i]), numpy.min(all_FAKE[4][i])])
+    stats.append([numpy.max(data_real[i]), numpy.max(all_FAKE[0][i]), numpy.max(all_FAKE[1][i]), numpy.max(all_FAKE[1][i]), numpy.max(all_FAKE[3][i]), numpy.max(all_FAKE[4][i])])
+    stats.append([numpy.std(data_real[i]), numpy.std(all_FAKE[0][i]), numpy.std(all_FAKE[1][i]), numpy.std(all_FAKE[1][i]), numpy.std(all_FAKE[3][i]), numpy.std(all_FAKE[4][i])])
+    
+    i += 1
+    
+    df = pd.DataFrame(stats, columns = ['real'] + label_list, index = ['mean', 'median', 'min', 'max', 'st dev'])
+    df.to_csv(r"D:\steelGAN\12292020\microstructure_analysis\microstructure_analysis\stats\grains2packets" + "\\" + attr + ".csv")
+
+print("lk")
+
+
 
 # HISTOGRAMS -------------------------------------------------------------------------------------- #
 i = 0
