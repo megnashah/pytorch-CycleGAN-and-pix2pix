@@ -14,6 +14,8 @@ trial_list = ["trial_12_14_20", 'train_12_21_20', 'train_12_28v2_20', 'train_12_
 label_list = ['B1, smooth', 'B1, sharp', 'B50, smooth', 'B16, smooth'] #packets2blocks
 #trial_list = ['trial_12_05_20', 'train_12_23_20', 'train_12_26_20', 'train_12_28_20', 'train_12_29_20'] #grains2packets
 #label_list = ['B1, smooth', 'B1, sharp', 'B50, sharp', 'B50, smooth', 'B16, smooth'] #grains2packets
+
+# TO BE CHANGED --> for change in project
 project = 'packets2blocks'
 
 # these will be 3D arrays of all fake data collected
@@ -28,7 +30,7 @@ feature_data_FAKE_dir = "/home/tom_phelan_ext/Documents/microstructure_analysis/
 
 # directory path for output graphs/plots and feature calculations; outputs graphs in new latest trial graph folder
 graphs_folder = "/home/tom_phelan_ext/Documents/graphs/" + project + "/" + trial_list[len(trial_list) - 1] + "/"
-calcs_folder = "/home/tom_phelan_ext/Documents/microstructure_analysis/" + project + "/feature_calcs_2/"
+calcs_folder = "/home/tom_phelan_ext/Documents/microstructure_analysis/" + project + "/feature_calculations/"
 if (not(os.path.exists(graphs_folder))): os.makedirs(graphs_folder)
 if (not(os.path.exists(calcs_folder))): os.makedirs(calcs_folder)
 
@@ -95,7 +97,10 @@ def create_histogram(real_attr_arr, fake, attr, attr_index, num_bins, log_bool):
         plt.savefig(graphs_folder + attr + "_HIST.png")
     plt.clf()
 
-def feature_calcs(real_data, fake_data, attr):
+def feature_calcs(real_data, fake_data, attr, attr_index):
+    #NOTE: the logic of fake_data is as follows: each index of the array is a sub_array representing a trial.
+    #NOTE: to access the correct attr of each trial, we must pass in an index (attr_index) to the function.
+
     df = pd.DataFrame(columns=["trial", "label", "min", "max", "mean", "median", "stdev"])
     # real data calculations
     mini = numpy.min(real_data)
@@ -105,20 +110,25 @@ def feature_calcs(real_data, fake_data, attr):
     stdev = numpy.std(real_data)
     real_calcs = {"trial": "real", "label": "real", "min": mini, "max": maxi, "mean": mean, "median": median, "stdev": stdev}
     df = df.append(real_calcs, ignore_index=True)
-
+    
     i = 0
     for fake_trial in fake_data:
+        # attribute data for current fake trial.
+        data = fake_trial[attr_index]
+        # obtain fake trial's name and label
         trial = trial_list[i]
         label = label_list[i]
-        mini = numpy.min(fake_trial)
-        maxi = numpy.max(fake_trial)
-        mean = numpy.mean(fake_trial)
-        median = numpy.median(fake_trial)
-        stdev = numpy.std(fake_trial)
+        # fake data calculations
+        mini = numpy.min(data)
+        maxi = numpy.max(data)
+        mean = numpy.mean(data)
+        median = numpy.median(data)
+        stdev = numpy.std(data)
         df = df.append({"trial": trial, "label": label, "min": mini, "max": maxi, "mean": mean, "median": median, "stdev": stdev}, ignore_index=True)
         i += 1
-
-    df.to_csv(calcs_folder + attr + ".csv")
+    
+    # save all attribute feature calculations to .csv file
+    df.to_csv(calcs_folder + attr + ".csv", index=False)
 
 def read_images(image, data_arr, log_data_arr):
     # NORMAL DATA
@@ -180,12 +190,12 @@ for trial in trial_list:
     print(str(trial) + " fake image data collected.")
     print()
 
-# HISTOGRAMS -------------------------------------------------------------------------------------- #
+# HISTOGRAMS AND FEATURE CALCULATIONS ------------------------------------------------------------- #
 i = 0
 for attr in attributes:
     print("Generating histogram for " + attr + " data...")
     create_histogram(real_attr_arr=data_real[i], fake=all_FAKE, attr=attr, attr_index=i, num_bins=25, log_bool=False)
-    feature_calcs(real_data=data_real[i], fake_data=all_FAKE, attr=attr)
+    feature_calcs(real_data=data_real[i], fake_data=all_FAKE, attr=attr, attr_index=i)
     i += 1
     print(attr + " histogram saved.")
     print()
@@ -193,7 +203,7 @@ i = 0
 for attr in log_attributes:
     print("Generating histogram for " + attr + " data...")
     create_histogram(real_attr_arr=log_data_real[i], fake=log_all_FAKE, attr=attr, attr_index=i, num_bins=25, log_bool=True)
-    feature_calcs(real_data=log_data_real[i], fake_data=log_all_FAKE, attr=attr)
+    feature_calcs(real_data=log_data_real[i], fake_data=log_all_FAKE, attr=attr, attr_index=i)
     i += 1
     print(attr + " histogram saved.")
     print()
