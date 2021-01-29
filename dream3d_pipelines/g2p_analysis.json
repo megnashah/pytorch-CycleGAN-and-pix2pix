@@ -2,8 +2,8 @@
     "00": {
         "CellAttributeMatrixName": "CellData",
         "DataContainerName": "ImageDataContainer",
-        "FileName": "D:/steelGAN/12292020/realdata/current_run/A/test/A_2.png",
-        "FilterVersion": "1.0.494",
+        "FileName": "/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/datasets/current_run/A/test/A_2.png",
+        "FilterVersion": "1.0.496",
         "Filter_Enabled": true,
         "Filter_Human_Label": "ITK::Image Reader",
         "Filter_Name": "ITKImageReader",
@@ -12,7 +12,7 @@
     },
     "01": {
         "DestinationArrayName": "Mask",
-        "FilterVersion": "1.2.808",
+        "FilterVersion": "1.2.815",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Threshold Objects",
         "Filter_Name": "MultiThresholdObjects",
@@ -31,7 +31,7 @@
         "ActiveArrayName": "Active",
         "CellFeatureAttributeMatrixName": "GrainFeatureData",
         "FeatureIdsArrayName": "GrainFeatureIDs",
-        "FilterVersion": "6.5.128",
+        "FilterVersion": "6.5.141",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Segment Features (Scalar)",
         "Filter_Name": "ScalarSegmentFeatures",
@@ -52,8 +52,8 @@
     "03": {
         "CellAttributeMatrixName": "PacketData",
         "DataContainerName": "ImageDataContainer2",
-        "FileName": "D:/steelGAN/12292020/realdata/current_run/B/test/A_2.png",
-        "FilterVersion": "1.0.494",
+        "FileName": "/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/datasets/current_run/B/test/A_2.png",
+        "FilterVersion": "1.0.496",
         "Filter_Enabled": true,
         "Filter_Human_Label": "ITK::Image Reader",
         "Filter_Name": "ITKImageReader",
@@ -77,7 +77,7 @@
             "Data Container Name": "ImageDataContainer2"
         },
         "DataContainerDestination": "",
-        "FilterVersion": "1.2.808",
+        "FilterVersion": "1.2.815",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Move Data",
         "Filter_Name": "MoveData",
@@ -197,7 +197,7 @@
                 }
             ]
         },
-        "FilterVersion": "1.2.808",
+        "FilterVersion": "1.2.815",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Delete Data",
         "Filter_Name": "RemoveArrays",
@@ -207,7 +207,7 @@
         "ActiveArrayName": "Active",
         "CellFeatureAttributeMatrixName": "PacketFeatureData",
         "FeatureIdsArrayName": "PacketFeatureIDs",
-        "FilterVersion": "6.5.128",
+        "FilterVersion": "6.5.141",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Segment Features (Scalar)",
         "Filter_Name": "ScalarSegmentFeatures",
@@ -241,7 +241,7 @@
             "Data Array Name": "ParentGrainIDs",
             "Data Container Name": "ImageDataContainer"
         },
-        "FilterVersion": "6.5.128",
+        "FilterVersion": "6.5.141",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Find Feature Phases",
         "Filter_Name": "FindFeaturePhases",
@@ -258,7 +258,7 @@
                 "PhaseType": 0
             }
         ],
-        "FilterVersion": "6.5.128",
+        "FilterVersion": "6.5.141",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Create Ensemble Info",
         "Filter_Name": "CreateEnsembleInfo",
@@ -272,7 +272,7 @@
             "Data Array Name": "ParentGrainIDs",
             "Data Container Name": "ImageDataContainer"
         },
-        "FilterVersion": "6.5.128",
+        "FilterVersion": "6.5.141",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Find Number of Features",
         "Filter_Name": "FindNumFeatures",
@@ -290,7 +290,7 @@
             "Data Array Name": "GrainFeatureIDs",
             "Data Container Name": "ImageDataContainer"
         },
-        "FilterVersion": "1.2.808",
+        "FilterVersion": "1.2.815",
         "Filter_Enabled": true,
         "Filter_Human_Label": "Create Element Array from Feature Array",
         "Filter_Name": "CopyFeatureArrayToElementArray",
@@ -302,18 +302,38 @@
         }
     },
     "11": {
-        "FilterVersion": "1.2.808",
-        "Filter_Enabled": true,
+        "FilterVersion": "1.2.815",
+        "Filter_Enabled": false,
         "Filter_Human_Label": "Write DREAM.3D Data File",
         "Filter_Name": "DataContainerWriter",
         "Filter_Uuid": "{3fcd4c43-9d75-5b86-aad4-4441bc914f37}",
-        "OutputFile": "D:/steelGAN/12292020/grains_packets.dream3d",
+        "OutputFile": "/home/tom_phelan_ext/Desktop/grains_packets.dream3d",
         "WriteTimeSeries": 0,
         "WriteXdmfFile": 1
     },
+    "12": {
+        "Delimiter": 0,
+        "FileExtension": ".csv",
+        "FilterVersion": "1.2.815",
+        "Filter_Enabled": true,
+        "Filter_Human_Label": "Export ASCII Data",
+        "Filter_Name": "WriteASCIIData",
+        "Filter_Uuid": "{5fbf9204-2c6c-597b-856a-f4612adbac38}",
+        "MaxValPerLine": 1,
+        "OutputFilePath": "/home/tom_phelan_ext/Documents/microstructure_analysis/grains2packets/numPackets/trial_12_05_20/1.csv",
+        "OutputPath": "/home/tom_phelan_ext/Documents/microstructure_analysis/grains2packets/numPackets/trial_12_05_20/1",
+        "OutputStyle": 1,
+        "SelectedDataArrayPaths": [
+            {
+                "Attribute Matrix Name": "GrainFeatureData",
+                "Data Array Name": "NumPackets",
+                "Data Container Name": "ImageDataContainer"
+            }
+        ]
+    },
     "PipelineBuilder": {
         "Name": "grain_to_packet_analysis",
-        "Number_Filters": 12,
+        "Number_Filters": 13,
         "Version": 6
     }
 }
