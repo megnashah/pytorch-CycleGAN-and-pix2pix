@@ -2,7 +2,7 @@
     "00": {
         "CellAttributeMatrixName": "CellData",
         "DataContainerName": "ImageDataContainer",
-        "FileName": "/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/datasets/current_run/A/test/A_2.png",
+        "FileName": "/home/tom_phelan_ext/gitCode/pix2pix/pytorch-CycleGAN-and-pix2pix/datasets/current_run/A/train/E_47.png",
         "FilterVersion": "1.0.496",
         "Filter_Enabled": true,
         "Filter_Human_Label": "ITK::Image Reader",
@@ -184,8 +184,7 @@
                 {
                     "Attribute Matricies": [
                         {
-                            "Data Arrays": [
-                            ],
+                            "Data Arrays": [],
                             "Flag": 0,
                             "Name": "PacketData",
                             "Type": 3
@@ -320,7 +319,7 @@
         "Filter_Name": "WriteASCIIData",
         "Filter_Uuid": "{5fbf9204-2c6c-597b-856a-f4612adbac38}",
         "MaxValPerLine": 1,
-        "OutputFilePath": "/home/tom_phelan_ext/Documents/microstructure_analysis/grains2packets/numPackets/trial_12_05_20/1.csv",
+        "OutputFilePath": "/home/tom_phelan_ext/Documents/microstructure_analysis/grains2packets/numPackets/trial_12_05_20/346.csv",
         "OutputPath": "/home/tom_phelan_ext/Documents/microstructure_analysis/grains2packets/numPackets/trial_12_05_20/1",
         "OutputStyle": 1,
         "SelectedDataArrayPaths": [
